@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Display Switcher CLI - Project Documentation</title>
+</head>
+<body>
+    <nav>
+        <a href="../index.html" class="brand">Jared Street</a>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../documents/JaredStreetResume.pdf">Resume</a></li>
+            <li><a href="../CIS_Syllabi.html">CIS Syllabi</a></li>
+            <li><a href="../cis241.html">CIS 241 Projects</a></li>
+            <li><a href="../cis266.html">CIS 266 Web Services</a></li>
+            <li><a href="../cis296.html">CIS 296 C# Projects</a></li>
+            <li>
+                <a href="http://catalog.southeasttech.edu/preview_program.php?catoid=17&poid=2004&hl=%22programming%22">
+                    STI CIS Curriculum
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="project-documentation">
+        <h1>Display Switcher CLI</h1>
+
+        <p>
+            Display Switcher CLI is a Go command-line application created to quickly switch
+            between different Windows monitor and workspace setups. The tool reads named
+            profiles from a JSON configuration file and applies the actions assigned to each
+            profile, such as loading a saved monitor configuration, disabling displays,
+            launching desktop applications, or opening useful URLs.
+        </p>
+
+        <p>
+            The project was built as a practical automation tool for managing different
+            computer setups. For example, one profile can restore a full desk layout with
+            multiple monitors, while another profile can simplify the display setup for use
+            from bed. Additional profiles can launch school-related apps, gaming apps, or
+            frequently used websites after the display layout is applied.
+        </p>
+
+        <h2>Technologies Used</h2>
+
+        <ul>
+            <li>Go</li>
+            <li>Cobra CLI library</li>
+            <li>JSON configuration</li>
+            <li>Windows command execution</li>
+            <li>NirSoft MultiMonitorTool</li>
+            <li>Saved monitor configuration files</li>
+            <li>Go modules</li>
+            <li>Windows executable build</li>
+        </ul>
+
+        <h2>Features</h2>
+
+        <ul>
+            <li>Provides a command-line interface named <code>displayswitcher</code></li>
+            <li>Uses Cobra subcommands for organizing CLI behavior</li>
+            <li>Loads profile data from <code>config.json</code></li>
+            <li>Supports a global <code>--config</code> flag for using a custom config file path</li>
+            <li>Lists all available profiles with the <code>list</code> command</li>
+            <li>Shows the actions assigned to a profile with the <code>show</code> command</li>
+            <li>Applies a selected profile with the <code>apply</code> command</li>
+            <li>Supports a <code>--dry-run</code> flag to preview actions without executing them</li>
+            <li>Loads saved display layouts using <code>MultiMonitorTool.exe</code></li>
+            <li>Can disable specific displays before applying a monitor profile</li>
+            <li>Can launch desktop applications as part of a workspace profile</li>
+            <li>Can open URLs in the default browser</li>
+            <li>Includes separate profiles for bed, desk, school, and gaming workflows</li>
+            <li>Includes saved monitor configuration files for different display layouts</li>
+        </ul>
+
+        <h2>Code Sample</h2>
+
+        <p>
+            This sample shows the configuration loading logic used by the CLI. The function
+            reads a JSON file, parses it into Go structs, and returns a usable configuration
+            object to the command files.
+        </p>
+
+        <pre><code class="language-go">type Config struct {
+    Profiles map[string]Profile `json:"profiles"`
+}
+
+type Profile struct {
+    Actions []Action `json:"actions"`
+}
+
+type Action struct {
+    Type string `json:"type"`
+    Path string `json:"path,omitempty"`
+}
+
+func Load(path string) (Config, error) {
+    b, err := os.ReadFile(path)
+    if err != nil {
+        return Config{}, fmt.Errorf("read %q: %w", path, err)
+    }
+
+    var cfg Config
+    if err := json.Unmarshal(b, &amp;cfg); err != nil {
+        return Config{}, fmt.Errorf("parse %q: %w", path, err)
+    }
+
+    if cfg.Profiles == nil {
+        cfg.Profiles = map[string]Profile{}
+    }
+
+    return cfg, nil
+}</code></pre>
+
+        <p>
+            This code represents the foundation of the tool. The CLI commands all depend on
+            the same configuration structure, allowing the application to treat each profile
+            as a named list of actions that can be listed, inspected, or executed.
+        </p>
+
+        <h2>App Screen Captures</h2>
+
+        <h3>Available Profiles Command</h3>
+        <figure>
+            <img src="screenshots/display-switcher-list.png" alt="Display Switcher CLI list command output">
+            <figcaption>Output showing available display and workspace profiles.</figcaption>
+        </figure>
+
+        <h3>Profile Details Command</h3>
+        <figure>
+            <img src="screenshots/display-switcher-show.png" alt="Display Switcher CLI show command output">
+            <figcaption>Output showing the actions assigned to a selected profile.</figcaption>
+        </figure>
+
+        <h3>Apply Profile Command</h3>
+        <figure>
+            <img src="screenshots/display-switcher-apply.png" alt="Display Switcher CLI apply command output">
+            <figcaption>Applying a saved display or workspace profile from the terminal.</figcaption>
+        </figure>
+
+        <h2>Demo</h2>
+
+        <p>
+            <a href="https://stc.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=0107982d-c1fc-4c68-8597-b40701357aba" rel="noopener noreferrer">
+                View the project demo here!
+            </a>
+            The demo video shows the CLI tool in action, applying different display and workspace. I cut out the section going through code, because I expose my montior ID.
+        </p>
+
+        <p>
+            <a href="../projects.html">Back to Other Projects</a>
+        </p>
+    </section>
+
+
+</body>
+</html>

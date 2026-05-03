@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Real-Time Voting System - CIS 266</title>
+</head>
+<body>
+    <nav>
+        <a href="../index.html" class="brand">Jared Street</a>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../documents/JaredStreetResume.pdf">Resume</a></li>
+            <li><a href="../CIS_Syllabi.html">CIS Syllabi</a></li>
+            <li><a href="../cis241.html">CIS 241 Projects</a></li>
+            <li><a href="../cis266.html">CIS 266 Web Services</a></li>
+            <li><a href="../cis296.html">CIS 296 C# Projects</a></li>
+            <li>
+                <a href="http://catalog.southeasttech.edu/preview_program.php?catoid=17&poid=2004&hl=%22programming%22">
+                    STI CIS Curriculum
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="project-documentation">
+        <h1>Real-Time Voting System</h1>
+
+        <p>
+            The Real-Time Voting System is a Node.js and Socket.IO project built for CIS 266.
+            The application allows users to vote for their favorite programming language and
+            see the poll results update instantly in the browser. Instead of requiring a page
+            refresh, the server broadcasts updated vote totals to every connected client in
+            real time.
+        </p>
+
+        <p>
+            The project separates the client and server logic into different folders. The
+            client side contains the HTML page, CSS styling, and browser JavaScript used to
+            send votes and render result bars. The server side uses Node.js to serve the static
+            files, maintain the vote state, listen for Socket.IO events, and push updated
+            results back to all connected users.
+        </p>
+
+        <h2>Technologies Used</h2>
+
+        <ul>
+            <li>Node.js</li>
+            <li>Socket.IO</li>
+            <li>JavaScript</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>HTTP server module</li>
+            <li>File system module</li>
+            <li>Path module</li>
+            <li>npm package management</li>
+            <li>Localhost development server</li>
+        </ul>
+
+        <h2>Features</h2>
+
+        <ul>
+            <li>Allows users to vote for JavaScript, Python, or C#</li>
+            <li>Sends votes from the browser to the server using Socket.IO events</li>
+            <li>Stores live vote counts on the Node.js server</li>
+            <li>Broadcasts updated results to all connected clients</li>
+            <li>Updates the browser interface instantly without refreshing the page</li>
+            <li>Displays vote counts beside each poll option</li>
+            <li>Calculates result percentages based on the current vote total</li>
+            <li>Displays animated horizontal result bars</li>
+            <li>Includes a reset button that clears all vote totals</li>
+            <li>Supports testing with multiple browser tabs to simulate multiple users</li>
+            <li>Serves the client HTML, JavaScript, and CSS files from the Node.js server</li>
+        </ul>
+
+        <h2>Code Sample</h2>
+
+        <p>
+            This sample shows the Socket.IO server logic for the voting system. When a user
+            connects, the server sends the current vote totals. When a vote or reset event is
+            received, the server updates the vote state and broadcasts the new results to every
+            connected client.
+        </p>
+
+        <pre><code class="language-javascript">// Socket.IO setup
+const io = require('socket.io')(server, {
+    cors: { origin: '*' }
+});
+
+// Voting state
+let votes = {
+    JavaScript: 0,
+    Python: 0,
+    'C#': 0
+};
+
+// Handle socket connections
+io.on('connection', (socket) =&gt; {
+    console.log('User connected');
+
+    // Send current results immediately
+    socket.emit('updateResults', votes);
+
+    // Handle vote
+    socket.on('vote', (option) =&gt; {
+        if (votes[option] !== undefined) {
+            votes[option]++;
+            io.emit('updateResults', votes);
+        }
+    });
+
+    // Reset poll
+    socket.on('reset', () =&gt; {
+        for (let key in votes) {
+            votes[key] = 0;
+        }
+        io.emit('updateResults', votes);
+    });
+});</code></pre>
+
+        <p>
+            This code represents the main real-time communication pattern used in the project:
+            clients emit events to the server, the server updates shared application state, and
+            Socket.IO broadcasts the new state back to all connected clients.
+        </p>
+
+        <h2>App Screen Captures</h2>
+
+        <h3>Voting Page with Multiple Clients</h3>
+        <figure>
+            <img src="screenshots/realtime-voting-home.png" alt="Real-time voting application page">
+            <figcaption>Voting interface with programming language options.</figcaption>
+        </figure>
+
+        <h3>Live Results</h3>
+        <figure>
+            <img src="screenshots/realtime-voting-results.png" alt="Live voting results with result bars">
+            <figcaption>Live result bars updating after users vote. Both clients update in real time, with no browser refresh.</figcaption>
+        </figure>
+
+        <h3>Demo Video</h3>
+        <figure>
+            click <a href="https://stc.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9219fb79-5cec-4967-9a82-b43b0000def3">here</a> to view the demo video
+        </figure>
+
+        <h2>Presentation Slides</h2>
+        <figure>
+            <img src="screenshots/Slide1.PNG">
+            <img src="screenshots/Slide2.PNG">
+            <img src="screenshots/Slide3.PNG">
+            <img src="screenshots/Slide4.PNG">
+            <img src="screenshots/Slide5.PNG">
+            <img src="screenshots/Slide6.PNG">
+        </figure>
+
+        <p>
+            <a href="../cis266.html">Back to CIS 266 Projects</a>
+        </p>
+    </section>
+
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>RESTful Student Contacts Service - CIS 266</title>
+</head>
+<body>
+    <nav>
+        <a href="../index.html" class="brand">Jared Street</a>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../documents/JaredStreetResume.pdf">Resume</a></li>
+            <li><a href="../CIS_Syllabi.html">CIS Syllabi</a></li>
+            <li><a href="../cis241.html">CIS 241 Projects</a></li>
+            <li><a href="../cis266.html">CIS 266 Web Services</a></li>
+            <li><a href="../cis296.html">CIS 296 C# Projects</a></li>
+            <li>
+                <a href="http://catalog.southeasttech.edu/preview_program.php?catoid=17&poid=2004&hl=%22programming%22">
+                    STI CIS Curriculum
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="project-documentation">
+        <h1>RESTful Student Contacts Service</h1>
+
+        <p>
+            The RESTful Student Contacts Service is a PHP/MySQL web service project built for
+            CIS 266. The project demonstrates how a server-side PHP application can connect to
+            a MySQL database, retrieve student contact records, encode the results as JSON, and
+            make that data available to client-side pages through REST-style endpoints.
+        </p>
+
+        <p>
+            The application includes both service-provider files and service-client files. The
+            provider side handles database access and JSON output, while the client side uses
+            jQuery AJAX requests to display all records or retrieve one selected record by
+            contact ID. The project also includes basic tester pages for directly testing the
+            API endpoints in the browser.
+        </p>
+
+        <h2>Technologies Used</h2>
+
+        <ul>
+            <li>PHP</li>
+            <li>MySQL</li>
+            <li>phpMyAdmin SQL export</li>
+            <li>HTML</li>
+            <li>JavaScript</li>
+            <li>jQuery AJAX</li>
+            <li>JSON</li>
+            <li>Localhost / WAMP-style development environment</li>
+        </ul>
+
+        <h2>Features</h2>
+
+        <ul>
+            <li>Connects to a MySQL database named <code>students</code></li>
+            <li>Uses a reusable PHP database access class for database operations</li>
+            <li>Displays all contact records from the student contacts table</li>
+            <li>Retrieves a single contact record by <code>contact_id</code></li>
+            <li>Returns API responses as JSON using <code>json_encode()</code></li>
+            <li>Includes API tester pages for directly checking service output</li>
+            <li>Includes client pages that consume the APIs with jQuery AJAX requests</li>
+            <li>Displays returned JSON data dynamically in the browser</li>
+            <li>Handles missing or invalid contact IDs with JSON error messages</li>
+            <li>Includes a SQL script for creating and populating the contacts table</li>
+        </ul>
+
+        <h2>Code Sample</h2>
+
+        <p>
+            This sample shows the PHP API endpoint used to retrieve one student contact record.
+            The script reads the <code>contact_id</code> value from the query string, checks that
+            the value was provided, queries the database through the database access class, and
+            returns either the matching record or an error message as JSON.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+include_once("class_lib/StrJDB_Access.php");
+
+$DB_Access = new StrJDB_Access();
+$table = "strj_unit2_ex1_contacts";
+
+$contact_id = $_GET['contact_id'] ?? "";
+
+if ($contact_id === "") {
+    print(json_encode(array("error" =&gt; "contact_id parameter is required")));
+    exit;
+}
+
+$DB_Result = $DB_Access-&gt;selectOne($table, $contact_id);
+
+if ($DB_Result &amp;&amp; $row = $DB_Result-&gt;fetch_assoc()) {
+    print(json_encode($row));
+} else {
+    print(json_encode(array("error" =&gt; "Record not found")));
+}
+?&gt;</code></pre>
+
+        <p>
+            This endpoint represents the main service pattern used in the project: receive a
+            request parameter, call a database method, convert the result to JSON, and return
+            that JSON response to a browser-based client.
+        </p>
+
+        <h2>App Screen Captures</h2>
+
+        <h3>Home / Project Links Page</h3>
+        <figure>
+            <img src="screenshots/RESTful-AJAX-home.png" alt="RESTful Student Contacts project home page">
+            <figcaption>Project home page with links to the service provider and client test pages.</figcaption>
+        </figure>
+
+        <h3>Display All Records Client</h3>
+        <figure>
+            <img src="screenshots/RESTful-AJAX-display-all.png" alt="Display all student contact records client page">
+            <figcaption>Client page displaying all student contact records returned from the API.</figcaption>
+        </figure>
+
+        <h3>Display One Record Client</h3>
+        <figure>
+            <img src="screenshots/RESTful-AJAX-display-one.png" alt="Display one student contact record client page">
+            <figcaption>Client page retrieving one student contact record by contact ID.</figcaption>
+        </figure>
+
+        <p>
+            <a href="../cis266.html">Back to CIS 266 Projects</a>
+        </p>
+    </section>
+
+
+</body>
+</html>
