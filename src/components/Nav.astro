@@ -1,0 +1,43 @@
+---
+const currentPath = Astro.url.pathname;
+
+const isActive = (path: string) => {
+  if (path === "/") {
+    return currentPath === "/";
+  }
+
+  return currentPath.startsWith(path);
+};
+---
+
+<header class="site-header">
+  <nav class="nav-container" aria-label="Main navigation">
+    <a class="brand" href="/">
+      Jared Street
+    </a>
+
+    <ul class="nav-links">
+      <li>
+        <a href="/" class={isActive("/") ? "active" : ""}>Home</a>
+      </li>
+      <li>
+        <a href="/projects/" class={isActive("/projects") ? "active" : ""}>Projects</a>
+      </li>
+      <li>
+        <a href="/#skills">Skills</a>
+      </li>
+      <li>
+        <a href="/#contact">Contact</a>
+      </li>
+      <li>
+        <a href="/documents/JaredStreetResume.pdf">Resume</a>
+      </li>
+      <li>
+        <a href="https://github.com/OhStreet" target="_blank" rel="noopener noreferrer">
+          GitHub
+        </a>
+      </li>
+      <!-- Add LinkedIn later -->
+    </ul>
+  </nav>
+</header>

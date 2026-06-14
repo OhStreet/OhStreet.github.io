@@ -1,17 +1,32 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <section id="hero" class="section-card">
+    <p class="eyebrow">Entry-Level Software Developer</p>
+    <h1>Jared Street</h1>
+    <p>
+      I build practical web, database, and application projects using C#,
+      ASP.NET Core, PHP, SQL, JavaScript, and Go.
+    </p>
+  </section>
+
+  <section id="featured-projects">
+    <p class="eyebrow">Selected Work</p>
+    <h2>Featured Projects</h2>
+    <p>Project cards will go here.</p>
+  </section>
+
+  <section id="skills">
+    <p class="eyebrow">Technical Stack</p>
+    <h2>Skills</h2>
+    <p>Grouped skills will go here.</p>
+  </section>
+
+  <section id="contact">
+    <p class="eyebrow">Contact</p>
+    <h2>Get in Touch</h2>
+    <p>Resume, GitHub, LinkedIn, and email links will go here.</p>
+  </section>
+</BaseLayout>
