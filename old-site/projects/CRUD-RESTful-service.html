@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Dark Souls CRUD Web Service - CIS 266</title>
+</head>
+<body>
+    <nav>
+        <a href="../index.html" class="brand">Jared Street</a>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../documents/JaredStreetResume.pdf">Resume</a></li>
+            <li><a href="../CIS_Syllabi.html">CIS Syllabi</a></li>
+            <li><a href="../cis241.html">CIS 241 Projects</a></li>
+            <li><a href="../cis266.html">CIS 266 Web Services</a></li>
+            <li><a href="../cis296.html">CIS 296 C# Projects</a></li>
+            <li>
+                <a href="http://catalog.southeasttech.edu/preview_program.php?catoid=17&poid=2004&hl=%22programming%22">
+                    STI CIS Curriculum
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="project-documentation">
+        <h1>Dark Souls CRUD Web Service</h1>
+
+        <p>
+            The Dark Souls CRUD Web Service is a PHP/MySQL web service project built for
+            CIS 266. The project demonstrates a themed full CRUD application where the
+            browser client communicates with a PHP API to create, read, update, and delete
+            records from a MySQL database.
+        </p>
+
+        <p>
+            The application separates the client and provider portions of the project. The
+            provider side contains the PHP API, database class, object classes, SQL export,
+            and tester page. The client side contains the HTML interface, JavaScript AJAX
+            logic, CSS styling, sound effects, and particle animation used to create a
+            Dark Souls-inspired user experience.
+        </p>
+
+        <h2>Technologies Used</h2>
+
+        <ul>
+            <li>PHP</li>
+            <li>MySQL</li>
+            <li>phpMyAdmin SQL export</li>
+            <li>Object-oriented PHP classes</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>jQuery AJAX</li>
+            <li>JSON</li>
+            <li>Draw.io UML diagram</li>
+            <li>Localhost / WAMP-style development environment</li>
+        </ul>
+
+        <h2>Features</h2>
+
+        <ul>
+            <li>Provides a PHP API endpoint for CRUD operations</li>
+            <li>Supports reading, inserting, updating, and deleting records</li>
+            <li>Uses a MySQL database named <code>darksouls</code></li>
+            <li>Stores data in <code>characters</code>, <code>factions</code>, and <code>weapons</code> tables</li>
+            <li>Uses PHP classes for Character, Faction, Weapon, and database access logic</li>
+            <li>Returns API responses as JSON</li>
+            <li>Uses jQuery AJAX requests to communicate with the API</li>
+            <li>Displays live table data for characters, factions, and weapons</li>
+            <li>Includes form controls for CRUD operations on each table</li>
+            <li>Uses animation effects for inserted, updated, and deleted rows</li>
+            <li>Includes sound effects for insert, update, and delete actions</li>
+            <li>Includes ember particle animation and Dark Souls-inspired styling</li>
+            <li>Includes an SQL export for recreating the database structure and sample data</li>
+            <li>Includes a UML diagram showing the project classes and relationships</li>
+        </ul>
+
+        <h2>Code Sample</h2>
+
+        <p>
+            This sample shows the main PHP API controller for the project. The script receives
+            an <code>action</code> and <code>table</code> value from the request, calls the matching
+            database method, and returns a JSON response to the client.
+        </p>
+
+        <pre><code class="language-php">&lt;?php
+
+include_once('classes/Character.php');
+include_once('classes/Faction.php');
+include_once('classes/Weapon.php');
+
+header('Content-Type: application/json');
+
+include_once('classes/DB_200.php');
+$db = new DB_200();
+
+$action = $_REQUEST['action'];
+$table = $_REQUEST['table'];
+
+// READ
+if ($action == "read") {
+    $id = !empty($_REQUEST['id']) ? $_REQUEST['id'] : null;
+    $result = $db-&gt;read($table, $id);
+    $data = [];
+
+    while ($row = $result-&gt;fetch_assoc()) {
+        if ($table === "characters") {
+            $obj = new Character(
+                $row["id"],
+                $row["name"],
+                $row["class"],
+                $row["level"],
+                $row["faction_id"],
+                $row["weapon_id"]
+            );
+        } elseif ($table === "factions") {
+            $obj = new Faction(
+                $row["id"],
+                $row["name"],
+                $row["alignment"],
+                $row["leader"],
+                $row["territory"]
+            );
+        } elseif ($table === "weapons") {
+            $obj = new Weapon(
+                $row["id"],
+                $row["name"],
+                $row["damage"],
+                $row["scaling"],
+                $row["weight"]
+            );
+        }
+
+        $data[] = $obj-&gt;toArray();
+    }
+
+    echo json_encode($data);
+}
+
+// INSERT
+if ($action == "insert") {
+    $data = $_POST;
+    unset($data['action'], $data['table']);
+    $db-&gt;insert($table, $data);
+    echo json_encode(["status" =&gt; "inserted"]);
+}
+
+// UPDATE
+if ($action == "update") {
+    $id = $_POST['id'];
+    $data = $_POST;
+    unset($data['action'], $data['table'], $data['id']);
+    $data = array_filter($data, function($value) {
+        return $value !== "";
+    });
+    $db-&gt;update($table, $id, $data);
+    echo json_encode(["status" =&gt; "updated"]);
+}
+
+// DELETE
+if ($action == "delete") {
+    $id = $_REQUEST['id'];
+    $db-&gt;delete($table, $id);
+    echo json_encode(["status" =&gt; "deleted"]);
+}
+
+?&gt;</code></pre>
+
+        <p>
+            This file represents the main API pattern used by the application: receive a request
+            from the client, determine the requested CRUD action, call the database layer, and
+            return a JSON response that the JavaScript client can display.
+        </p>
+
+        <h2>App Screen Captures</h2>
+
+        <h3>Dark Souls CRUD Home Page</h3>
+        <figure>
+            <img src="screenshots/darksouls-home.png" alt="Dark Souls CRUD web service home page">
+            <figcaption>Client interface for the Dark Souls-themed CRUD web service.</figcaption>
+        </figure>
+
+        <h3>Live table viewer</h3>
+        <figure>
+            <img src="screenshots/darksouls-live-table.png" alt="Live database display">
+            <figcaption>This is the live table of the database. CRUD operations are reflected in real-time.</figcaption>
+        </figure>
+
+        <h3>Database API display</h3>
+        <figure>
+            <img src="screenshots/darksouls-database-display-API.png" alt="Entire database displayed through the API">
+            <figcaption>This is the entire database displayed through the API.</figcaption>
+        </figure>
+
+        <p>
+            <a href="../cis266.html">Back to CIS 266 Projects</a>
+        </p>
+    </section>
+
+
+</body>
+</html>

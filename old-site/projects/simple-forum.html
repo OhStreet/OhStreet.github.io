@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Simple Forum Application - CIS 241</title>
+</head>
+<body>
+    <nav>
+        <a href="../index.html" class="brand">Jared Street</a>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../documents/JaredStreetResume.pdf">Resume</a></li>
+            <li><a href="../CIS_Syllabi.html">CIS Syllabi</a></li>
+            <li><a href="../cis241.html">CIS 241 Projects</a></li>
+            <li><a href="../cis266.html">CIS 266 Web Services</a></li>
+            <li><a href="../cis296.html">CIS 296 C# Projects</a></li>
+            <li>
+                <a href="http://catalog.southeasttech.edu/preview_program.php?catoid=17&poid=2004&hl=%22programming%22">
+                    STI CIS Curriculum
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <section class="project-documentation">
+    <h1>Simple Forum Application</h1>
+
+    <p>
+        The Simple Forum Application is a dynamic PHP/MySQL forum site built for CIS 241.
+        The project demonstrates a database-backed web application where users can register,
+        log in, browse forum categories, create posts, edit posts, and delete posts. The
+        application uses PHP for server-side logic, MySQL/MariaDB for persistent data storage,
+        PDO for database access, and Bootstrap for basic page styling.
+    </p>
+
+    <p>
+        This project is externally hosted because GitHub Pages only supports static pages and
+        does not run PHP or MySQL. The hosted version demonstrates the actual working database
+        functionality required for the portfolio rubric.
+    </p>
+
+    <h2>Features</h2>
+
+    <ul>
+        <li>User registration with username, email, and password fields</li>
+        <li>Secure password hashing using PHP's <code>password_hash()</code> function</li>
+        <li>User login validation using <code>password_verify()</code></li>
+        <li>Session-based login and logout functionality</li>
+        <li>Optional "Remember Me" login token stored in the database</li>
+        <li>Forum category listing pulled from the database</li>
+        <li>Category-based post viewing</li>
+        <li>Create, edit, and delete forum posts</li>
+        <li>MySQL database structure for users, categories, and posts</li>
+        <li>PDO prepared statements for database queries</li>
+        <li>Bootstrap-based responsive layout</li>
+        <li>Dynamic navigation that changes depending on whether the user is logged in</li>
+    </ul>
+
+    <h2>Code Sample</h2>
+
+    <p>
+        This sample shows the post update function from the project. It uses a prepared SQL
+        statement with bound values to safely update a forum post in the database.
+    </p>
+
+    <pre><code class="language-php">function update_post($id, $title, $content) {
+    global $db;
+
+    $query = 'UPDATE posts
+              SET title = :title,
+                  content = :content
+              WHERE id = :id';
+
+    $statement = $db-&gt;prepare($query);
+    $statement-&gt;bindValue(':title', $title);
+    $statement-&gt;bindValue(':content', $content);
+    $statement-&gt;bindValue(':id', $id, PDO::PARAM_INT);
+
+    $success = $statement-&gt;execute();
+    $statement-&gt;closeCursor();
+
+    return $success;
+}</code></pre>
+
+    <p>
+        This function represents the main database pattern used throughout the application:
+        prepare the query, bind user-provided values, execute the statement, and close the cursor.
+    </p>
+
+    <h2>App Screen Captures</h2>
+
+    <h3>Home / Forum Categories Page</h3>
+    <figure>
+        <img src="screenshots/simple-forum-home.png" alt="Simple Forum home page showing forum categories">
+        <figcaption>Forum categories loaded from the database.</figcaption>
+    </figure>
+
+    <h3>Post Creation Page</h3>
+    <figure>
+        <img src="screenshots/simple-forum-create-post.png" alt="Simple Forum post creation page with form fields for title and content">
+        <figcaption>Creating a new forum post.</figcaption>
+    </figure>
+
+    <h3>Viewing Posts</h3>
+    <figure>
+        <img src="screenshots/simple-forum-view-post.png" alt="Simple Forum posts page">
+        <figcaption>Posts displayed for a selected forum category.</figcaption>
+    </figure>
+
+    <h2>Demo</h2>
+
+    <p>
+        <a href="https://cis241simpleforum.ct.ws/index.php" target="_blank" rel="noopener noreferrer">
+            Try the app live here!
+        </a>
+        Create an account, log in, and explore the forum functionality.
+    </p>
+
+    <p>
+        <a href="../cis241.html">Back to CIS 241 Projects</a>
+    </p>
+</section>
+
+
+</body>
+</html>
