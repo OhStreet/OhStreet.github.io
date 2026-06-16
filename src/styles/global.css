@@ -791,6 +791,7 @@ section {
   .project-image-placeholder {
     height: 9rem;
   }
+  
 }
 
 @media (max-width: 760px) {
@@ -825,5 +826,24 @@ section {
 
   .hero-photo {
     width: 240px;
+  }
+
+  .hover-category-card.is-expanded,
+  .hover-category-card:focus-within {
+    min-height: auto;
+  }
+
+  .hover-category-card.is-expanded .category-card-body,
+  .hover-category-card:focus-within .category-card-body {
+    max-height: 80rem;
+    overflow: visible;
+  }
+
+  .category-project-window {
+    min-height: auto;
+  }
+
+  .project-slide.is-active {
+    gap: 1rem;
   }
 }
