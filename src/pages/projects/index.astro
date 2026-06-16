@@ -137,14 +137,23 @@ const courseworkArchive = {
 
     <div class="category-grid">
       {projectCategories.map((category) => (
-        <article class="category-card hover-category-card">
+        <article class="category-card hover-category-card" data-category-card>
           <div class="category-card-header">
-            <span>
-              <strong>{category.name}</strong>
-              <small>
-                {category.projects.length} project{category.projects.length === 1 ? "" : "s"}
-              </small>
-            </span>
+            <button
+              class="category-card-toggle"
+              type="button"
+              data-category-toggle
+              aria-expanded="false"
+            >
+              <span>
+                <strong>{category.name}</strong>
+                <small>
+                  {category.projects.length} project{category.projects.length === 1 ? "" : "s"}
+                </small>
+              </span>
+
+              <span class="category-card-icon" aria-hidden="true">+</span>
+            </button>
           </div>
 
           <div class="category-card-body">
@@ -271,5 +280,22 @@ const courseworkArchive = {
     });
 
     showSlide(0);
+  });
+
+  document.querySelectorAll("[data-category-toggle]").forEach((button) => {
+    const card = button.closest("[data-category-card]");
+    const icon = button.querySelector(".category-card-icon");
+
+    if (!card) return;
+
+    button.addEventListener("click", () => {
+      const isExpanded = card.classList.toggle("is-expanded");
+
+      button.setAttribute("aria-expanded", String(isExpanded));
+
+      if (icon) {
+        icon.textContent = isExpanded ? "−" : "+";
+      }
+    });
   });
 </script>
