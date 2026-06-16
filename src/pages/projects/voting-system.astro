@@ -1,0 +1,186 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Code } from "astro:components";
+
+const votingCode = `// Socket.IO setup
+const io = require('socket.io')(server, {
+    cors: { origin: '*' }
+});
+
+// Voting state
+let votes = {
+    JavaScript: 0,
+    Python: 0,
+    'C#': 0
+};
+
+// Handle socket connections
+io.on('connection', (socket) => {
+    console.log('User connected');
+
+    // Send current results immediately
+    socket.emit('updateResults', votes);
+
+    // Handle vote
+    socket.on('vote', (option) => {
+        if (votes[option] !== undefined) {
+            votes[option]++;
+            io.emit('updateResults', votes);
+        }
+    });
+
+    // Reset poll
+    socket.on('reset', () => {
+        for (let key in votes) {
+            votes[key] = 0;
+        }
+
+        io.emit('updateResults', votes);
+    });
+});`;
+
+const techStack = [
+  "Node.js",
+  "Socket.IO",
+  "JavaScript",
+  "HTML",
+  "CSS",
+  "Realtime Events",
+];
+
+const features = [
+  "Allows users to vote for JavaScript, Python, or C#",
+  "Sends votes from the browser to the server using Socket.IO events",
+  "Stores live vote counts on the Node.js server",
+  "Broadcasts updated results to all connected clients",
+  "Updates the browser interface instantly without refreshing the page",
+  "Displays vote counts beside each poll option",
+  "Calculates result percentages based on the current vote total",
+  "Displays animated horizontal result bars",
+  "Includes a reset button that clears all vote totals",
+  "Supports testing with multiple browser tabs to simulate multiple users",
+  "Serves the client HTML, JavaScript, and CSS files from the Node.js server",
+];
+
+const screenshots = [
+  {
+    src: "/screenshots/realtime-voting-home.png",
+    alt: "Real-time voting application page",
+    title: "Voting Page with Multiple Clients",
+    caption: "Voting interface used by connected clients.",
+  },
+  {
+    src: "/screenshots/realtime-voting-results.png",
+    alt: "Live voting results with result bars",
+    title: "Live Results",
+    caption: "Vote totals and percentage bars update in real time.",
+  },
+];
+
+const slides = [
+  "/screenshots/Slide1.PNG",
+  "/screenshots/Slide2.PNG",
+  "/screenshots/Slide3.PNG",
+  "/screenshots/Slide4.PNG",
+  "/screenshots/Slide5.PNG",
+  "/screenshots/Slide6.PNG",
+  "/screenshots/Slide7.PNG",
+];
+---
+
+<BaseLayout
+  title="Real-Time Voting System | Jared Street"
+  description="Node.js and Socket.IO voting system with live browser updates."
+>
+  <section class="page-hero project-hero fade-in">
+    <p class="eyebrow">JavaScript / Realtime</p>
+    <h1>Real-Time Voting System</h1>
+    <p>
+      A Node.js and Socket.IO project where users vote for a programming
+      language and see poll results update instantly across connected browser
+      clients.
+    </p>
+
+    <div class="tech-list">
+      {techStack.map((tech) => <span class="tech-pill">{tech}</span>)}
+    </div>
+
+    <div class="button-row">
+      <a class="button button-secondary" href="/projects/">Back to Projects</a>
+    </div>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Overview</p>
+    <h2>Project Purpose</h2>
+    <p>
+      The Real-Time Voting System demonstrates event-driven browser/server
+      communication. Instead of requiring a page refresh, the server broadcasts
+      updated vote totals to every connected client in real time.
+    </p>
+    <p>
+      The project separates client and server logic. The client handles the
+      voting interface and result bars, while the server maintains vote state,
+      listens for Socket.IO events, and pushes updated totals to all users.
+    </p>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Features</p>
+    <h2>What the Application Does</h2>
+
+    <ul class="feature-list">
+      {features.map((feature) => <li>{feature}</li>)}
+    </ul>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Code Sample</p>
+    <h2>Socket.IO Server Events</h2>
+    <p>
+      This sample shows the server-side voting logic. When a client connects,
+      votes, or resets the poll, the server updates state and broadcasts the new
+      result totals to every connected browser.
+    </p>
+
+    <Code code={votingCode} lang="javascript" theme="github-dark" wrap />
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Screenshots</p>
+    <h2>Application Screens</h2>
+
+    <div class="screenshot-grid">
+      {screenshots.map((screenshot) => (
+        <figure class="screenshot-card">
+          <img src={screenshot.src} alt={screenshot.alt} />
+          <figcaption>
+            <strong>{screenshot.title}</strong>
+            <span>{screenshot.caption}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Presentation</p>
+    <h2>Presentation Slides</h2>
+    <p>
+      These slides document the real-time voting project concept, technologies,
+      team process, and application behavior.
+    </p>
+
+    <div class="screenshot-grid">
+      {slides.map((slide, index) => (
+        <figure class="screenshot-card">
+          <img src={slide} alt={`Real-time voting presentation slide ${index + 1}`} />
+          <figcaption>
+            <strong>Slide {index + 1}</strong>
+            <span>Presentation material for the real-time voting project.</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

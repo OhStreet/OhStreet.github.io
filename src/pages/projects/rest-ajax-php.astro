@@ -1,0 +1,148 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Code } from "astro:components";
+
+const restAjaxCode = `<?php
+include_once("class_lib/StrJDB_Access.php");
+
+$DB_Access = new StrJDB_Access();
+$table = "strj_unit2_ex1_contacts";
+
+$contact_id = $_GET['contact_id'] ?? "";
+
+if ($contact_id === "") {
+    print(json_encode(array("error" => "contact_id parameter is required")));
+    exit;
+}
+
+$DB_Result = $DB_Access->selectOne($table, $contact_id);
+
+if ($DB_Result && $row = $DB_Result->fetch_assoc()) {
+    print(json_encode($row));
+} else {
+    print(json_encode(array("error" => "Record not found")));
+}
+?>`;
+
+const techStack = [
+  "PHP",
+  "MySQL",
+  "JSON",
+  "AJAX",
+  "jQuery",
+  "JavaScript",
+  "HTML",
+  "CSS",
+];
+
+const features = [
+  "Connects to a MySQL database named students",
+  "Uses a reusable PHP database access class for database operations",
+  "Displays all contact records from the student contacts table",
+  "Retrieves a single contact record by contact_id",
+  "Returns API responses as JSON using json_encode()",
+  "Includes API tester pages for directly checking service output",
+  "Includes client pages that consume the APIs with jQuery AJAX requests",
+  "Displays returned JSON data dynamically in the browser",
+  "Handles missing or invalid contact IDs with JSON error messages",
+  "Includes a SQL script for creating and populating the contacts table",
+];
+
+const screenshots = [
+  {
+    src: "/screenshots/RESTful-AJAX-home.png",
+    alt: "RESTful Student Contacts project home page",
+    title: "Home / Project Links Page",
+    caption: "Main project page linking to the client and service test pages.",
+  },
+  {
+    src: "/screenshots/RESTful-AJAX-display-all.png",
+    alt: "Display all student contact records client page",
+    title: "Display All Records Client",
+    caption: "AJAX client page displaying all records returned by the PHP service.",
+  },
+  {
+    src: "/screenshots/RESTful-AJAX-display-one.png",
+    alt: "Display one student contact record client page",
+    title: "Display One Record Client",
+    caption: "Client page retrieving one contact record by contact ID.",
+  },
+];
+---
+
+<BaseLayout
+  title="RESTful Student Contacts Service | Jared Street"
+  description="PHP/MySQL REST-style service returning JSON data to AJAX client pages."
+>
+  <section class="page-hero project-hero fade-in">
+    <p class="eyebrow">PHP / MySQL / AJAX</p>
+    <h1>RESTful Student Contacts Service</h1>
+    <p>
+      A PHP/MySQL web service project that retrieves student contact records,
+      encodes them as JSON, and exposes the data to browser-based client pages
+      through REST-style endpoints.
+    </p>
+
+    <div class="tech-list">
+      {techStack.map((tech) => <span class="tech-pill">{tech}</span>)}
+    </div>
+
+    <div class="button-row">
+      <a class="button button-secondary" href="/projects/">Back to Projects</a>
+    </div>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Overview</p>
+    <h2>Project Purpose</h2>
+    <p>
+      The RESTful Student Contacts Service demonstrates how a server-side PHP
+      application can connect to a MySQL database, retrieve records, encode the
+      results as JSON, and return that data to client-side pages.
+    </p>
+    <p>
+      The application separates provider files from client files. The provider
+      side handles database access and JSON output, while the client side uses
+      jQuery AJAX requests to display all records or retrieve a selected record
+      by contact ID.
+    </p>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Features</p>
+    <h2>What the Service Does</h2>
+
+    <ul class="feature-list">
+      {features.map((feature) => <li>{feature}</li>)}
+    </ul>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Code Sample</p>
+    <h2>Returning One Contact as JSON</h2>
+    <p>
+      This PHP endpoint reads a contact ID from the query string, validates that
+      it was provided, calls the database access class, and returns either the
+      matching record or an error message as JSON.
+    </p>
+
+    <Code code={restAjaxCode} lang="php" theme="github-dark" wrap />
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Screenshots</p>
+    <h2>Application Screens</h2>
+
+    <div class="screenshot-grid">
+      {screenshots.map((screenshot) => (
+        <figure class="screenshot-card">
+          <img src={screenshot.src} alt={screenshot.alt} />
+          <figcaption>
+            <strong>{screenshot.title}</strong>
+            <span>{screenshot.caption}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

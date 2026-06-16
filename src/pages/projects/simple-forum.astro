@@ -1,0 +1,156 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Code } from "astro:components";
+
+const simpleForumCode = `function update_post($id, $title, $content) {
+    global $db;
+
+    $query = 'UPDATE posts
+              SET title = :title,
+                  content = :content
+              WHERE id = :id';
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':title', $title);
+    $statement->bindValue(':content', $content);
+    $statement->bindValue(':id', $id, PDO::PARAM_INT);
+
+    $success = $statement->execute();
+    $statement->closeCursor();
+
+    return $success;
+}`;
+
+const techStack = [
+  "PHP",
+  "MySQL",
+  "PDO",
+  "Sessions",
+  "Password Hashing",
+  "Bootstrap",
+];
+
+const features = [
+  "User registration with username, email, and password fields",
+  "Secure password hashing using PHP password_hash()",
+  "Login validation using password_verify()",
+  "Session-based login and logout functionality",
+  "Optional Remember Me token stored in the database",
+  "Forum categories loaded from MySQL",
+  "Category-based post browsing",
+  "Create, edit, and delete forum posts",
+  "PDO prepared statements for database queries",
+  "Responsive Bootstrap layout",
+  "Navigation that changes based on login state",
+];
+
+const screenshots = [
+  {
+    src: "/screenshots/simple-forum-home.png",
+    alt: "Simple Forum home page showing forum categories",
+    title: "Forum Categories",
+    caption: "Forum categories loaded dynamically from the database.",
+  },
+  {
+    src: "/screenshots/simple-forum-create-post.png",
+    alt: "Simple Forum create post page",
+    title: "Create Post",
+    caption: "Authenticated users can create new forum posts.",
+  },
+  {
+    src: "/screenshots/simple-forum-view-post.png",
+    alt: "Simple Forum posts page",
+    title: "Viewing Posts",
+    caption: "Posts displayed for a selected forum category.",
+  },
+];
+---
+
+<BaseLayout
+  title="Simple Forum Application | Jared Street"
+  description="PHP and MySQL forum application with authentication, sessions, posts, categories, and database persistence."
+>
+  <section class="page-hero project-hero fade-in">
+    <p class="eyebrow">PHP / MySQL</p>
+    <h1>Simple Forum Application</h1>
+    <p>
+      A dynamic forum application where users can register, log in, browse
+      categories, create posts, edit posts, and delete posts using a MySQL-backed
+      PHP application.
+    </p>
+
+    <div class="tech-list">
+      {techStack.map((tech) => <span class="tech-pill">{tech}</span>)}
+    </div>
+
+    <div class="button-row">
+      <a
+        class="button button-primary"
+        href="https://cis241simpleforum.ct.ws/index.php"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View Live Demo
+      </a>
+      <a class="button button-secondary" href="/projects/">Back to Projects</a>
+    </div>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow ">Overview</p>
+    <h2>Project Purpose</h2>
+    <p>
+      The Simple Forum Application is a PHP/MySQL web application focused on
+      database-backed user interaction. It includes account creation, login,
+      session handling, forum categories, and post management.
+    </p>
+    <p>
+      The project demonstrates server-side web development using PHP, relational
+      database tables, prepared SQL statements, authentication checks, and
+      dynamic pages that change based on whether the user is logged in.
+    </p>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Features</p>
+    <h2>What the Application Does</h2>
+
+    <ul class="feature-list">
+      {features.map((feature) => <li>{feature}</li>)}
+    </ul>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Code Sample</p>
+    <h2>Updating Posts with a Prepared Statement</h2>
+    <p>
+      This function updates a forum post using a prepared SQL statement. User
+      values are bound to named parameters before the query executes.
+    </p>
+
+    <Code code={simpleForumCode} lang="php" theme="github-dark" wrap />
+
+    <p>
+      This is the main database-access pattern used throughout the project:
+      prepare the SQL query, bind user-provided values, execute the statement,
+      and close the cursor.
+    </p>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Screenshots</p>
+    <h2>Application Screens</h2>
+
+    <div class="screenshot-grid">
+      {screenshots.map((screenshot) => (
+        <figure class="screenshot-card">
+          <img src={screenshot.src} alt={screenshot.alt} />
+          <figcaption>
+            <strong>{screenshot.title}</strong>
+            <span>{screenshot.caption}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

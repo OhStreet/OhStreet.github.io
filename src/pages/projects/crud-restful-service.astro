@@ -1,0 +1,178 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Code } from "astro:components";
+
+const crudCode = `<?php
+
+include_once('classes/Character.php');
+include_once('classes/Faction.php');
+include_once('classes/Weapon.php');
+include_once('classes/DB_200.php');
+
+header('Content-Type: application/json');
+
+$db = new DB_200();
+
+$action = $_REQUEST['action'];
+$table = $_REQUEST['table'];
+
+if ($action == "read") {
+    $id = !empty($_REQUEST['id']) ? $_REQUEST['id'] : null;
+    $result = $db->read($table, $id);
+    $data = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+
+    echo json_encode($data);
+}
+
+if ($action == "insert") {
+    $data = $_POST;
+    unset($data['action'], $data['table']);
+
+    $db->insert($table, $data);
+    echo json_encode(["status" => "inserted"]);
+}
+
+if ($action == "update") {
+    $id = $_POST['id'];
+    $data = $_POST;
+    unset($data['action'], $data['table'], $data['id']);
+
+    $db->update($table, $id, $data);
+    echo json_encode(["status" => "updated"]);
+}
+
+if ($action == "delete") {
+    $id = $_REQUEST['id'];
+
+    $db->delete($table, $id);
+    echo json_encode(["status" => "deleted"]);
+}
+?>`;
+
+const techStack = [
+  "PHP",
+  "MySQL",
+  "Object-Oriented PHP",
+  "JavaScript",
+  "jQuery AJAX",
+  "JSON",
+  "HTML",
+  "CSS",
+];
+
+const features = [
+  "Provides a PHP API endpoint for CRUD operations",
+  "Supports reading, inserting, updating, and deleting records",
+  "Uses a MySQL database named darksouls",
+  "Stores data in characters, factions, and weapons tables",
+  "Uses PHP classes for Character, Faction, Weapon, and database access logic",
+  "Returns API responses as JSON",
+  "Uses jQuery AJAX requests to communicate with the API",
+  "Displays live table data for characters, factions, and weapons",
+  "Includes form controls for CRUD operations on each table",
+  "Uses animation effects for inserted, updated, and deleted rows",
+  "Includes sound effects and Dark Souls-inspired UI styling",
+  "Includes an SQL export for recreating the database structure and sample data",
+];
+
+const screenshots = [
+  {
+    src: "/screenshots/darksouls-home.png",
+    alt: "Dark Souls CRUD web service home page",
+    title: "Dark Souls CRUD Home Page",
+    caption: "Client interface for the Dark Souls-themed CRUD web service.",
+  },
+  {
+    src: "/screenshots/darksouls-live-table.png",
+    alt: "Live database display",
+    title: "Live Table Viewer",
+    caption: "CRUD operations are reflected in the live table display.",
+  },
+  {
+    src: "/screenshots/darksouls-database-display-API.png",
+    alt: "Entire database displayed through the API",
+    title: "Database API Display",
+    caption: "Database records returned through the PHP API.",
+  },
+];
+---
+
+<BaseLayout
+  title="Dark Souls CRUD Web Service | Jared Street"
+  description="PHP/MySQL CRUD web service with JavaScript AJAX interactions and JSON API responses."
+>
+  <section class="page-hero project-hero fade-in">
+    <p class="eyebrow">PHP / MySQL / AJAX</p>
+    <h1>Dark Souls CRUD Web Service</h1>
+    <p>
+      A themed PHP/MySQL CRUD web service where a browser client communicates
+      with PHP API endpoints to create, read, update, and delete database
+      records.
+    </p>
+
+    <div class="tech-list">
+      {techStack.map((tech) => <span class="tech-pill">{tech}</span>)}
+    </div>
+
+    <div class="button-row">
+      <a class="button button-secondary" href="/projects/">Back to Projects</a>
+    </div>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Overview</p>
+    <h2>Project Purpose</h2>
+    <p>
+      The Dark Souls CRUD Web Service demonstrates a full client-provider web
+      service pattern. The provider side contains the PHP API, object classes,
+      database class, SQL export, and tester page.
+    </p>
+    <p>
+      The client side contains the HTML interface, JavaScript AJAX logic, CSS
+      styling, sound effects, and particle animation used to create a themed user
+      experience while still practicing practical CRUD service behavior.
+    </p>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Features</p>
+    <h2>What the Application Does</h2>
+
+    <ul class="feature-list">
+      {features.map((feature) => <li>{feature}</li>)}
+    </ul>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Code Sample</p>
+    <h2>Main API Controller Pattern</h2>
+    <p>
+      This sample shows the main API pattern: receive an action and table value,
+      call the matching database method, and return a JSON response to the
+      browser client.
+    </p>
+
+    <Code code={crudCode} lang="php" theme="github-dark" wrap />
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Screenshots</p>
+    <h2>Application Screens</h2>
+
+    <div class="screenshot-grid">
+      {screenshots.map((screenshot) => (
+        <figure class="screenshot-card">
+          <img src={screenshot.src} alt={screenshot.alt} />
+          <figcaption>
+            <strong>{screenshot.title}</strong>
+            <span>{screenshot.caption}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

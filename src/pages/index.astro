@@ -1,32 +1,199 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const featuredProjects = [
+  {
+    title: "SportsPro Technical Support",
+    href: "/projects/sportspro/",
+    summary:
+      "ASP.NET Core MVC support management system with database-backed CRUD workflows.",
+    tech: ["C#", "ASP.NET Core", "Entity Framework", "SQL Server"],
+  },
+  {
+    title: "Godot Grid Roguelike",
+    href: "/projects/godot-roguelike/",
+    summary:
+      "Turn-based roguelike prototype with grid movement, combat, rewards, and persistent run state.",
+    tech: ["Godot", "C#", "Game Systems"],
+  },
+  {
+    title: "Display Switching CLI",
+    href: "/projects/display-switcher/",
+    summary:
+      "Go command-line tool for switching Windows display profiles and launching workflow-specific apps.",
+    tech: ["Go", "Cobra", "JSON"],
+  },
+];
+
+const skillGroups = [
+  {
+    name: "Languages",
+    skills: ["C#", "PHP", "JavaScript", "Go", "SQL", "HTML/CSS"],
+  },
+  {
+    name: "Frameworks & Tools",
+    skills: ["ASP.NET Core MVC", "Entity Framework", "Godot", "Cobra", "Laravel", "React", "WAMP/LAMP"],
+  },
+  {
+    name: "Databases & Concepts",
+    skills: ["MySQL", "SQL Server", "SQLite", "REST APIs", "CRUD", "MVC"],
+  },
+];
+
+const contactDetails = {
+  email: "jared.cstreet@gmail.com",
+  phone: "605-999-0122",
+  location: "Sioux Falls, SD",
+  github: "https://github.com/OhStreet",
+  linkedin: "www.linkedin.com/in/jared-street-a63008400",
+  resume: "/documents/JaredStreetResume.pdf",
+};
 ---
 
-<BaseLayout>
-  <section id="hero" class="section-card">
-    <p class="eyebrow">Entry-Level Software Developer</p>
-    <h1>Jared Street</h1>
-    <p>
-      I build practical web, database, and application projects using C#,
-      ASP.NET Core, PHP, SQL, JavaScript, and Go.
-    </p>
+<BaseLayout
+  title="Jared Street | Entry-Level Software Developer"
+  description="Portfolio for Jared Street, an entry-level software developer focused on practical web, database, and application projects."
+>
+  <section id="hero" class="section-card hero-card">
+    <div class="hero-content fade-in">
+      <p class="eyebrow">Entry-Level Software Developer</p>
+
+      <h1>Jared Street</h1>
+
+      <p class="hero-summary">
+        I build practical web, database, and application projects using C#,
+        ASP.NET Core, PHP, SQL, JavaScript, and Go.
+      </p>
+
+      <div class="button-row">
+        <a class="button button-primary" href="/projects/">View Projects</a>
+        <a class="button button-primary" href="/documents/JaredStreetResume.pdf">View Resume</a>
+      </div>
+    </div>
+
+    <div class="hero-photo-wrap fade-in">
+      <img
+        class="hero-photo"
+        src="/screenshots/tempheadshot.jpeg"
+        alt="Headshot of Jared Street"
+      />
+    </div>
+   
   </section>
 
-  <section id="featured-projects">
-    <p class="eyebrow">Selected Work</p>
-    <h2>Featured Projects</h2>
-    <p>Project cards will go here.</p>
+  <section id="featured-projects" class="fade-in">
+    <div class="section-heading">
+      <p class="eyebrow">Selected Work</p>
+      <h2>Featured Projects</h2>
+      <p>
+        A few projects that best represent my experience with web applications,
+        database-backed systems, tools, and C# development.
+      </p>
+    </div>
+
+    <div class="project-grid ">
+      {featuredProjects.map((project) => (
+        <article class="project-card">
+          <h3>
+            <a href={project.href}>{project.title}</a>
+          </h3>
+
+          <p>{project.summary}</p>
+
+          <div class="tech-list">
+            {project.tech.map((techItem) => (
+              <span class="tech-pill">{techItem}</span>
+            ))}
+          </div>
+
+          <div class="button-row">
+            <a class="button button-secondary" href={project.href}>
+              View Project
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="section-action">
+      <a class="button button-primary" href="/projects/">View All Projects</a>
+    </div>
   </section>
 
-  <section id="skills">
-    <p class="eyebrow">Technical Stack</p>
-    <h2>Skills</h2>
-    <p>Grouped skills will go here.</p>
+  <section id="skills" class="fade-in">
+    <div class="section-heading fade-in">
+      <p class="eyebrow">Technical Stack</p>
+      <h2>Skills</h2>
+      <p>
+        Technologies and concepts I have used across coursework, portfolio projects,
+        and independent development.
+      </p>
+    </div>
+
+    <div class="skills-grid fade-in">
+      {skillGroups.map((group) => (
+        <article class="skill-card">
+          <h3>{group.name}</h3>
+
+          <div class="tech-list">
+            {group.skills.map((skill) => (
+              <span class="tech-pill">{skill}</span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
   </section>
 
-  <section id="contact">
+  <section id="contact" class="section-card contact-card fade-in">
     <p class="eyebrow">Contact</p>
-    <h2>Get in Touch</h2>
-    <p>Resume, GitHub, LinkedIn, and email links will go here.</p>
+    <h2>Let’s Connect</h2>
+
+    <p>
+      I am preparing to apply for entry-level software development roles and am
+      interested in practical application development, web systems, database-backed
+      projects, and developer tools.
+    </p>
+
+    <div class="contact-details">
+      <div>
+        <span>Email</span>
+        <a href={`mailto:${contactDetails.email}`}>{contactDetails.email}</a>
+      </div>
+
+      <div>
+        <span>Phone</span>
+        <a href={`tel:${contactDetails.phone}`}>{contactDetails.phone}</a>
+      </div>
+
+      <div>
+        <span>Location</span>
+        <p>{contactDetails.location}</p>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <a class="button button-primary" href={contactDetails.resume}>
+        View Resume
+      </a>
+
+      <a
+        class="button button-secondary"
+        href={contactDetails.github}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub
+      </a>
+
+      <a
+        class="button button-secondary"
+        href={contactDetails.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        LinkedIn
+      </a>
+    </div>
   </section>
 </BaseLayout>

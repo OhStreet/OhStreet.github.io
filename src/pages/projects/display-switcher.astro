@@ -1,0 +1,166 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Code } from "astro:components";
+
+const techStack = [
+  "Go",
+  "Cobra",
+  "JSON",
+  "Windows",
+  "MultiMonitorTool",
+  "CLI Automation",
+];
+
+const features = [
+  "Command-line interface for switching Windows display and workspace profiles",
+  "Cobra subcommands for organizing CLI behavior",
+  "JSON configuration file for named profiles",
+  "Global --config flag for custom config file paths",
+  "list command for showing available profiles",
+  "show command for inspecting profile actions",
+  "apply command for executing a selected profile",
+  "--dry-run flag for previewing actions without running them",
+  "Saved monitor layouts loaded through NirSoft MultiMonitorTool",
+  "Display-disabling actions for simplified monitor setups",
+  "Desktop application launching as part of workspace profiles",
+  "URL opening through the default browser",
+  "Separate profiles for bed, desk, school, and gaming workflows",
+];
+
+const screenshots = [
+  {
+    src: "/screenshots/display-switcher-list.png",
+    alt: "Display Switcher list command output",
+    title: "List Command",
+    caption: "Displays available workspace and monitor profiles.",
+  },
+  {
+    src: "/screenshots/display-switcher-show.png",
+    alt: "Display Switcher show command output",
+    title: "Show Command",
+    caption: "Displays the actions assigned to a selected profile.",
+  },
+  {
+    src: "/screenshots/display-switcher-apply.png",
+    alt: "Display Switcher apply command output",
+    title: "Apply Command",
+    caption:
+      "Applies a selected display profile and runs the configured workflow actions.",
+  },
+];
+
+const configCode = `type Config struct {
+    Profiles map[string]Profile \`json:"profiles"\`
+}
+
+type Profile struct {
+    Actions []Action \`json:"actions"\`
+}
+
+type Action struct {
+    Type string \`json:"type"\`
+    Path string \`json:"path,omitempty"\`
+}
+
+func Load(path string) (Config, error) {
+    b, err := os.ReadFile(path)
+    if err != nil {
+        return Config{}, fmt.Errorf("read %q: %w", path, err)
+    }
+
+    var cfg Config
+    if err := json.Unmarshal(b, &cfg); err != nil {
+        return Config{}, fmt.Errorf("parse %q: %w", path, err)
+    }
+
+    return cfg, nil
+}`;
+---
+
+<BaseLayout
+  title="Display Switcher CLI | Jared Street"
+  description="Go command-line tool for switching Windows display profiles and launching workflow-specific applications."
+>
+  <section class="page-hero project-hero fade-in">
+    <p class="eyebrow">Go / CLI Tool</p>
+    <h1>Display Switcher CLI</h1>
+    <p>
+      A Go command-line application for switching between Windows monitor and
+      workspace setups. The tool reads named profiles from JSON and applies
+      actions such as loading monitor layouts, disabling displays, launching
+      apps, and opening URLs.
+    </p>
+
+    <div class="tech-list">
+      {techStack.map((tech) => <span class="tech-pill">{tech}</span>)}
+    </div>
+
+    <div class="button-row">
+      <a
+        class="button button-primary"
+        href="https://stc.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=0107982d-c1fc-4c68-8597-b40701357aba"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View Live Demo
+      </a>
+      <a class="button button-secondary" href="/projects/">Back to Projects</a>
+    </div>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Overview</p>
+    <h2>Project Purpose</h2>
+    <p>
+      Display Switcher CLI was built as a practical automation tool for managing
+      different computer setups. One profile can restore a full desk layout with
+      multiple monitors, while another can simplify the display setup for use
+      from bed.
+    </p>
+    <p>
+      The project also supports workflow automation beyond monitor layout. A
+      profile can launch school-related applications, gaming tools, or useful
+      websites after the display configuration is applied.
+    </p>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Features</p>
+    <h2>What the Tool Does</h2>
+
+    <ul class="feature-list">
+      {features.map((feature) => <li>{feature}</li>)}
+    </ul>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Code Sample</p>
+    <h2>Loading Profile Configuration</h2>
+    <p>
+      This sample shows the configuration-loading logic. The CLI reads a JSON
+      file, parses it into Go structs, and returns a usable configuration object
+      to the command files.
+    </p>
+
+    <Code code={configCode} lang="go" theme="github-dark" wrap />
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Screenshots</p>
+    <h2>CLI Output</h2>
+
+    <div class="screenshot-grid">
+      {screenshots.map((screenshot) => (
+        <figure class="screenshot-card">
+          <img src={screenshot.src} alt={screenshot.alt} />
+          <figcaption>
+            <strong>{screenshot.title}</strong>
+            <span>{screenshot.caption}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+
+</BaseLayout>

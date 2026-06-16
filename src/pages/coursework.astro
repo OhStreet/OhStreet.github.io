@@ -1,0 +1,200 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const courseTracks = [
+  {
+    title: "Programming Foundations",
+    description:
+      "Core programming courses covering C#, introductory programming concepts, data analysis, and secure coding practices.",
+    courses: ["CIS 130", "CIS 131", "CIS 137", "CIS 225"],
+  },
+  {
+    title: "Web Development",
+    description:
+      "Coursework focused on PHP, dynamic websites, ASP.NET, web services, and application development.",
+    courses: ["CIS 195", "CIS 196", "CIS 236", "CIS 241", "CIS 266", "CIS 296"],
+  },
+  {
+    title: "Databases and Business Systems",
+    description:
+      "Database and business technology courses covering relational data, eBusiness, and database-backed systems.",
+    courses: ["CIS 194", "CIS 207", "CIS 279"],
+  },
+  {
+    title: "Advanced Development",
+    description:
+      "Upper-level courses focused on larger development projects, new technologies, and applied software work.",
+    courses: ["CIS 248", "CIS 293"],
+  },
+];
+
+const syllabi = [
+  {
+    code: "CIS 130",
+    title: "Introduction to Programming",
+    href: "/documents/syllabi/CIS130_syllabus.pdf",
+    area: "Programming Foundations",
+  },
+  {
+    code: "CIS 131",
+    title: "C# Programming",
+    href: "/documents/syllabi/CIS131_syllabus.pdf",
+    area: "C# / .NET",
+  },
+  {
+    code: "CIS 137",
+    title: "Data Analysis",
+    href: "/documents/syllabi/CIS137_syllabus.pdf",
+    area: "Data",
+  },
+  {
+    code: "CIS 194",
+    title: "Introduction to Databases",
+    href: "/documents/syllabi/CIS194_syllabus.pdf",
+    area: "Databases",
+  },
+  {
+    code: "CIS 195",
+    title: "Internet Programming Essentials",
+    href: "/documents/syllabi/CIS195_syllabus.pdf",
+    area: "Web Development",
+  },
+  {
+    code: "CIS 196",
+    title: "Internet Programming II",
+    href: "/documents/syllabi/CIS196_syllabus.pdf",
+    area: "Web Development",
+  },
+  {
+    code: "CIS 207",
+    title: "eBusiness",
+    href: "/documents/syllabi/CIS207_syllabus.pdf",
+    area: "Business Systems",
+  },
+  {
+    code: "CIS 225",
+    title: "Secure Programming",
+    href: "/documents/syllabi/CIS225_syllabus.pdf",
+    area: "Security",
+  },
+  {
+    code: "CIS 236",
+    title: "Introduction to MS Web Development",
+    href: "/documents/syllabi/CIS236_syllabus.pdf",
+    area: "ASP.NET",
+  },
+  {
+    code: "CIS 241",
+    title: "Dynamic Website Development",
+    href: "/documents/syllabi/CIS241_syllabus.pdf",
+    area: "PHP / MySQL",
+  },
+  {
+    code: "CIS 248",
+    title: "Advanced Application Development",
+    href: "/documents/syllabi/CIS248_syllabus.pdf",
+    area: "Application Development",
+  },
+  {
+    code: "CIS 266",
+    title: "Web Services",
+    href: "/documents/syllabi/CIS266_syllabus.pdf",
+    area: "APIs / Services",
+  },
+  {
+    code: "CIS 279",
+    title: "Databases II",
+    href: "/documents/syllabi/CIS279_syllabus.pdf",
+    area: "Databases",
+  },
+  {
+    code: "CIS 293",
+    title: "Advanced Technologies",
+    href: "/documents/syllabi/CIS293_syllabus.pdf",
+    area: "Tools / Automation",
+  },
+  {
+    code: "CIS 296",
+    title: "MS Web Development II",
+    href: "/documents/syllabi/CIS296_syllabus.pdf",
+    area: "C# / ASP.NET Core",
+  },
+];
+---
+
+<BaseLayout
+  title="Coursework & Syllabi | Jared Street"
+  description="Coursework archive and CIS syllabi for Jared Street's programming, web development, database, and application development courses."
+>
+  <section class="page-hero fade-in">
+    <p class="eyebrow">Coursework Archive</p>
+    <h1>Coursework & Syllabi</h1>
+    <p>
+      A supporting archive of CIS coursework, course syllabi, and academic project
+      context.
+    </p>
+
+    <div class="button-row">
+      <a class="button button-primary" href="/projects/">View Projects</a>
+      <a class="button button-secondary" href="/documents/JaredStreetResume.pdf">View Resume</a>
+    </div>
+  </section>
+
+  <section class="fade-in">
+    <div class="section-heading">
+      <p class="eyebrow">Academic Focus</p>
+      <h2>Course Areas</h2>
+      <p>
+        The coursework behind this portfolio covers programming, web development,
+        databases, application development, services, and practical tooling.
+      </p>
+    </div>
+
+    <div class="course-track-grid">
+      {courseTracks.map((track) => (
+        <article class="course-track-card">
+          <h3>{track.title}</h3>
+          <p>{track.description}</p>
+
+          <div class="tech-list">
+            {track.courses.map((course) => (
+              <span class="tech-pill">{course}</span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-card fade-in">
+    <div class="section-heading">
+      <p class="eyebrow">Syllabi</p>
+      <h2>CIS Course Syllabi</h2>
+      <p>
+        PDF syllabi from completed or in-progress CIS courses. These are included
+        as academic references, not as the primary focus of the portfolio.
+      </p>
+    </div>
+
+    <div class="syllabus-grid">
+      {syllabi.map((course) => (
+        <article class="syllabus-card">
+          <div>
+            <p class="course-area">{course.area}</p>
+            <h3>{course.code}</h3>
+            <p>{course.title}</p>
+          </div>
+
+          <a
+            class="text-link"
+            href={course.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Syllabus
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

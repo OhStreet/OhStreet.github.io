@@ -1,0 +1,206 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Code } from "astro:components";
+
+const techStack = [
+  "Godot 4.4.1",
+  "C#",
+  ".NET",
+  "TileMapLayer",
+  "Node2D",
+  "Game Systems",
+];
+
+const features = [
+  "Turn-based grid movement using keyboard input",
+  "Tile-based collision and walkability checks",
+  "Player bump-attacks when moving into an occupied enemy tile",
+  "Sequential enemy turn resolution after the player acts",
+  "Enemy movement and adjacency-based attacks",
+  "Multiple combat floors with a final boss floor",
+  "Reward selection between non-boss floors",
+  "Persistent run state across scene changes",
+  "Player stats for health, max health, damage, enemies defeated, and total damage dealt",
+  "Active abilities including Whirlwind, Attack Buff, and Heal",
+  "Passive reward effects such as healing on kill, regeneration, and scaling damage bonuses",
+  "Gear rewards such as Iron Charm and Rage Mask",
+  "Combat log using styled RichTextLabel text",
+  "Start menu, reward screen, game over screen, and victory screen",
+];
+
+const screenshots = [
+  {
+    src: "/screenshots/roguelike-start-menu.png",
+    alt: "Godot roguelike start menu",
+    title: "Start Menu",
+    caption: "Start menu used to begin a new run.",
+  },
+  {
+    src: "/screenshots/roguelike-combat-floor.png",
+    alt: "Godot roguelike combat floor with player and enemies",
+    title: "Combat Floor",
+    caption:
+      "Grid-based combat floor with player movement, enemies, UI, and combat log.",
+  },
+  {
+    src: "/screenshots/roguelike-reward-selection.png",
+    alt: "Godot roguelike reward selection screen",
+    title: "Reward Selection",
+    caption:
+      "Reward cards presented between floors to improve the current run.",
+  },
+  {
+    src: "/screenshots/roguelike-final-floor.png",
+    alt: "Godot roguelike final floor",
+    title: "Final Floor",
+    caption: "Final combat floor before the end-screen flow.",
+  },
+  {
+    src: "/screenshots/roguelike-end-screen.png",
+    alt: "Godot roguelike end screen",
+    title: "End Screen",
+    caption: "Victory or game-over flow after the run ends.",
+  },
+];
+
+const runEffectsCode = `public static class RunEffects
+{
+    public static int GetEffectiveMaxHealth(Player player, RunState runState)
+    {
+        int maxHealth = runState.BaseMaxHealth;
+
+        if (runState.CurrentGear == RunState.GearType.IronCharm)
+            maxHealth += 15;
+
+        return maxHealth;
+    }
+
+    public static int GetEffectiveDamage(Player player, RunState runState)
+    {
+        int damage = runState.BaseDamage;
+
+        if (runState.CurrentGear == RunState.GearType.RageMask &&
+            player.Health * 2 < GetEffectiveMaxHealth(player, runState))
+        {
+            damage += 2;
+        }
+
+        if (player.NextAttackBuffed)
+        {
+            damage *= 2;
+        }
+
+        return damage;
+    }
+
+    public static void OnEnemyKilled(Player player, RunState runState, Start map)
+    {
+        if (runState.OwnedBoons.Contains(RunState.BoonType.HealOnKill))
+        {
+            player.Health = Math.Min(
+                player.Health + 1,
+                GetEffectiveMaxHealth(player, runState)
+            );
+
+            map.AddLogMessageRaw(
+                $"[color=green]Life Tap[/color] restores [color=green]1 HP[/color]."
+            );
+        }
+
+        if (runState.OwnedBoons.Contains(RunState.BoonType.CrushingWeight))
+        {
+            int newTier = runState.EnemiesDefeated / 5;
+
+            if (newTier > runState.CrushingWeightTiersAwarded)
+            {
+                int tiersGained = newTier - runState.CrushingWeightTiersAwarded;
+                runState.BaseDamage += tiersGained;
+                runState.CrushingWeightTiersAwarded = newTier;
+
+                map.AddLogMessageRaw(
+                    $"[color=orange]Crushing Weight[/color] grants " +
+                    $"[color=yellow]+{tiersGained} damage[/color]."
+                );
+            }
+        }
+
+        SyncPlayerStats(player, runState);
+    }
+}`;
+---
+
+<BaseLayout
+  title="Godot Grid Roguelike | Jared Street"
+  description="Turn-based Godot roguelike prototype with grid movement, combat, rewards, abilities, and persistent run state."
+>
+  <section class="page-hero project-hero fade-in">
+    <p class="eyebrow">Game Systems / C#</p>
+    <h1>Godot Grid Roguelike Prototype</h1>
+    <p>
+      A turn-based dungeon crawler built in Godot 4.4.1 with C#. The project
+      focuses on grid-based movement, combat turns, reward selection, player
+      abilities, and persistent run progression.
+    </p>
+
+    <div class="tech-list">
+      {techStack.map((tech) => <span class="tech-pill">{tech}</span>)}
+    </div>
+
+    <div class="button-row">
+      <a class="button button-secondary" href="/projects/">Back to Projects</a>
+    </div>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Overview</p>
+    <h2>Project Purpose</h2>
+    <p>
+      The Godot Grid Roguelike Prototype is a small but complete gameplay loop:
+      the player starts a run, moves through tile-based combat floors, defeats
+      enemies, selects rewards, and continues until victory or game over.
+    </p>
+    <p>
+      The main development challenge was coordinating turn order and state. The
+      player acts first, then enemies resolve their turns, while health, damage,
+      rewards, boons, gear, and floor progress persist across scene changes.
+    </p>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Features</p>
+    <h2>What the Prototype Includes</h2>
+
+    <ul class="feature-list">
+      {features.map((feature) => <li>{feature}</li>)}
+    </ul>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Code Sample</p>
+    <h2>Reward and Gear Effect Logic</h2>
+    <p>
+      This sample shows how the project calculates derived combat stats and
+      applies persistent reward effects. Gear and boons are not just displayed in
+      the UI; they directly affect damage, healing, and long-term run scaling.
+    </p>
+
+    <Code code={runEffectsCode} lang="csharp" theme="github-dark" wrap />
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Screenshots</p>
+    <h2>Application Screens</h2>
+
+    <div class="screenshot-grid">
+      {screenshots.map((screenshot) => (
+        <figure class="screenshot-card">
+          <img src={screenshot.src} alt={screenshot.alt} />
+          <figcaption>
+            <strong>{screenshot.title}</strong>
+            <span>{screenshot.caption}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

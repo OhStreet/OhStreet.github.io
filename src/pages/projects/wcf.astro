@@ -1,0 +1,183 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Code } from "astro:components";
+
+const wcfCode = `[ServiceContract]
+public interface IService1
+{
+    [OperationContract]
+    void AddBook(Book book);
+
+    [OperationContract]
+    void UpdateBook(Book book);
+
+    [OperationContract]
+    void DeleteBook(int bookID);
+
+    [OperationContract]
+    Book GetBook(int bookID);
+
+    [OperationContract]
+    List<Book> GetAllBooks();
+
+    [OperationContract]
+    List<Book> SearchByTitle(string title);
+
+    [OperationContract]
+    List<Book> SearchByAuthor(string author);
+
+    [OperationContract]
+    Book SearchByISBN(string isbn);
+
+    [OperationContract]
+    bool CheckBookAvailability(int bookID);
+
+    [OperationContract]
+    void CheckOutBook(int bookID);
+
+    [OperationContract]
+    void ReturnBook(int bookID);
+}
+
+[DataContract]
+public class Book
+{
+    [DataMember]
+    public int BookID { get; set; }
+
+    [DataMember]
+    public string Title { get; set; }
+
+    [DataMember]
+    public string Author { get; set; }
+
+    [DataMember]
+    public string ISBN { get; set; }
+
+    [DataMember]
+    public bool IsAvailable { get; set; }
+}`;
+
+const techStack = [
+  "C#",
+  ".NET Framework 4.8",
+  "WCF",
+  "SOAP",
+  "Visual Studio 2022",
+  "Console Client",
+];
+
+const features = [
+  "Defines a WCF service contract with book management operations",
+  "Uses a Book data contract with book ID, title, author, ISBN, and availability fields",
+  "Adds new book records through the service",
+  "Updates existing book title, author, and ISBN data",
+  "Deletes books by book ID",
+  "Retrieves one book by book ID",
+  "Lists all books currently stored in the service",
+  "Searches books by title",
+  "Searches books by author",
+  "Searches for one book by ISBN",
+  "Checks whether a book is available",
+  "Checks out a book by changing its availability status",
+  "Returns a checked-out book by marking it available again",
+  "Uses WCF fault exceptions to report invalid input and missing records",
+  "Provides a menu-driven console client for testing service operations",
+];
+
+const screenshots = [
+  {
+    src: "/screenshots/library-wcf-service-browser.png",
+    alt: "Library WCF service running in browser",
+    title: "WCF Service Running in Browser",
+    caption: "The locally hosted WCF service running through the browser.",
+  },
+  {
+    src: "/screenshots/library-console-menu.png",
+    alt: "Library console application menu",
+    title: "Console Application Menu",
+    caption: "Menu-driven console client used to test service operations.",
+  },
+  {
+    src: "/screenshots/library-console-output.png",
+    alt: "Library console output showing book records",
+    title: "Book Operation Output",
+    caption: "Console output showing service responses for book operations.",
+  },
+];
+---
+
+<BaseLayout
+  title="Library Record WCF Service | Jared Street"
+  description="C# WCF service and console client for managing library book records."
+>
+  <section class="page-hero project-hero fade-in">
+    <p class="eyebrow">C# / WCF</p>
+    <h1>Library Record WCF Service</h1>
+    <p>
+      A C# web service project that defines a WCF service contract, exposes book
+      management operations, and consumes those operations from a separate
+      console client application.
+    </p>
+
+    <div class="tech-list">
+      {techStack.map((tech) => <span class="tech-pill">{tech}</span>)}
+    </div>
+
+    <div class="button-row">
+      <a class="button button-secondary" href="/projects/">Back to Projects</a>
+    </div>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Overview</p>
+    <h2>Project Purpose</h2>
+    <p>
+      The Library Record WCF Service demonstrates structured service-based
+      communication in C#. The solution includes a WCF service project that
+      defines the service contract, data contract, and service implementation.
+    </p>
+    <p>
+      A separate console client connects to the service through a generated
+      service reference and provides a menu-driven interface for testing the
+      library record operations.
+    </p>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Features</p>
+    <h2>What the Service Does</h2>
+
+    <ul class="feature-list">
+      {features.map((feature) => <li>{feature}</li>)}
+    </ul>
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Code Sample</p>
+    <h2>Service Contract and Data Contract</h2>
+    <p>
+      This sample shows the operations exposed by the WCF service and the Book
+      data contract passed between the service and the console client.
+    </p>
+
+    <Code code={wcfCode} lang="csharp" theme="github-dark" wrap />
+  </section>
+
+  <section class="section-card project-section fade-in">
+    <p class="eyebrow">Screenshots</p>
+    <h2>Application Screens</h2>
+
+    <div class="screenshot-grid">
+      {screenshots.map((screenshot) => (
+        <figure class="screenshot-card">
+          <img src={screenshot.src} alt={screenshot.alt} />
+          <figcaption>
+            <strong>{screenshot.title}</strong>
+            <span>{screenshot.caption}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
