@@ -9,6 +9,7 @@ const projectCategories = [
       {
         title: "SportsPro Technical Support",
         href: "/projects/sportspro/",
+        sourceHref: "https://github.com/OhStreet/SportsPro-Technical-Support",
         summary: "ASP.NET Core MVC support management system with database-backed CRUD workflows.",
         tech: ["C#", "ASP.NET Core MVC", "Entity Framework", "SQL Server"],
         image: "/screenshots/sportspro-home.png",
@@ -17,6 +18,7 @@ const projectCategories = [
       {
         title: "WCF Service Project",
         href: "/projects/wcf/",
+        sourceHref: "https://github.com/OhStreet/WCF-Library-Record-System",
         summary: "Service/client project demonstrating C# service methods and structured communication.",
         tech: ["C#", "WCF", ".NET Framework", "SOAP"],
         image: "/screenshots/library-wcf-service-browser.png",
@@ -31,6 +33,7 @@ const projectCategories = [
       {
         title: "Simple Forum Application",
         href: "/projects/simple-forum/",
+        sourceHref: "https://github.com/OhStreet/Simple-Forum",
         summary: "Dynamic forum application with users, posts, categories, sessions, and database persistence.",
         tech: ["PHP", "MySQL", "PDO", "Sessions"],
         image: "/screenshots/simple-forum-home.png",
@@ -39,6 +42,7 @@ const projectCategories = [
       {
         title: "RESTful Student Contacts Service",
         href: "/projects/rest-ajax-php/",
+        sourceHref: "https://github.com/OhStreet/RESTful-Student-Contacts-Service",
         summary: "PHP/MySQL service that returns JSON data and is consumed by an AJAX client.",
         tech: ["PHP", "MySQL", "AJAX", "JSON"],
         image: "/screenshots/RESTful-AJAX-home.png",
@@ -47,6 +51,7 @@ const projectCategories = [
       {
         title: "Dark Souls CRUD Web Service",
         href: "/projects/crud-restful-service/",
+        sourceHref: "https://github.com/CloneMalone/DarkSouls-PHP-AJAJ",
         summary: "Themed CRUD web service with PHP API endpoints, MySQL tables, and AJAX interactions.",
         tech: ["PHP", "MySQL", "JavaScript", "jQuery AJAX"],
         image: "/screenshots/darksouls-home.png",
@@ -61,6 +66,7 @@ const projectCategories = [
       {
         title: "Display Switching CLI",
         href: "/projects/display-switcher/",
+        sourceHref: "https://github.com/OhStreet/DisplaySwitcher",
         summary: "Go command-line tool for switching Windows display profiles and launching workflow-specific apps.",
         tech: ["Go", "Cobra", "JSON", "Windows"],
         image: "/screenshots/display-switcher-show.png",
@@ -75,6 +81,7 @@ const projectCategories = [
       {
         title: "Godot Grid Roguelike Prototype",
         href: "/projects/godot-roguelike/",
+        sourceHref: "https://github.com/OhStreet/godot-roguelike-prototype",
         summary: "Turn-based grid roguelike prototype with combat, enemy turns, rewards, and persistent run state.",
         tech: ["Godot", "C#", "Game Systems", "Tilemaps"],
         image: "/screenshots/roguelike-combat-floor.png",
@@ -84,6 +91,7 @@ const projectCategories = [
         title: "Troll Pong Gamejam Entry",
         summary: "A game jam I participated in with 2 other people using mob programming methods. The theme of the game jam was WarioWare.",
         href: "https://severalherr.itch.io/troll-pong",
+        sourceHref: "https://github.com/jherrflexion/sti-game-jam",
         image: "/screenshots/troll-pong.png",
         imageAlt: "Troll Pong gamejam entry",
         tech: ["Godot", "C#", "Game Systems"],
@@ -97,6 +105,7 @@ const projectCategories = [
     {
       title: "Realtime Voting System",
       href: "/projects/voting-system/",
+      sourceHref: "https://github.com/OhStreet/Web-Socket-Real-Time-Voting-System",
       summary: "Realtime voting demo using browser-based interaction and live result updates.",
       tech: ["JavaScript", "Node.js", "Socket.IO", "HTML/CSS"],
       image: "/screenshots/realtime-voting-home.png",
@@ -217,9 +226,22 @@ const courseworkArchive = {
                       ))}
                     </div>
 
-                    <a class="text-link" href={project.href}>
-                      View Project
-                    </a>
+                    <div class="project-link-row">
+                      <a class="text-link" href={project.href}>
+                        View Project
+                      </a>
+
+                      {project.sourceHref && (
+                        <a
+                          class="text-link"
+                          href={project.sourceHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          View Source
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </article>
               ))}

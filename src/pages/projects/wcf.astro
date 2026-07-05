@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Code } from "astro:components";
 
+const sourceHref = "https://github.com/OhStreet/Web-Socket-Real-Time-Voting-System"
 const wcfCode = `[ServiceContract]
 public interface IService1
 {
@@ -126,6 +127,16 @@ const screenshots = [
 
     <div class="button-row">
       <a class="button button-secondary" href="/projects/">Back to Projects</a>
+      {sourceHref && (
+        <a
+          class="button button-primary"
+          href={sourceHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Source
+        </a>
+      )}
     </div>
   </section>
 

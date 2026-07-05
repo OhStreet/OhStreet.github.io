@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Code } from "astro:components";
 
+const sourceHref = "https://github.com/OhStreet/Simple-Forum"
 const simpleForumCode = `function update_post($id, $title, $content) {
     global $db;
 
@@ -81,6 +82,20 @@ const screenshots = [
 
     <div class="tech-list">
       {techStack.map((tech) => <span class="tech-pill">{tech}</span>)}
+    </div>
+
+    <div class="button-row">
+      <a class="button button-secondary" href="/projects/">Back to Projects</a>
+      {sourceHref && (
+        <a
+          class="button button-primary"
+          href={sourceHref}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Source
+        </a>
+      )}
     </div>
   </section>
 
