@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Code } from "astro:components";
 
-const sourceHref = "https://github.com/OhStreet/Web-Socket-Real-Time-Voting-System"
+const sourceHref = "https://github.com/OhStreet/WCF-Library-Record-System"
 const wcfCode = `[ServiceContract]
 public interface IService1
 {
@@ -162,6 +162,45 @@ const screenshots = [
     <ul class="feature-list">
       {features.map((feature) => <li>{feature}</li>)}
     </ul>
+  </section>
+  <section class="section-card project-process">
+    <p class="eyebrow">Process</p>
+    <h2>Development Process</h2>
+
+    <div class="process-grid">
+      <article>
+        <h3>Planning</h3>
+        <p>
+          I built this project from course and textbook examples to understand how
+          a WCF service is structured. The main goal was to separate the service
+          provider from the client application by defining a service contract, a
+          book data model, service operations, and a console client that calls the service through a
+          generated reference.
+        </p>
+      </article>
+
+      <article>
+        <h3>Validation</h3>
+        <p>
+          I validated the project by running the WCF service locally and using the
+          console client to test each operation: adding books, updating records,
+          searching by title, author, and ISBN, checking availability, checking
+          books out, returning them, and confirming that service faults were handled
+          cleanly by the client.
+        </p>
+      </article>
+
+      <article>
+        <h3>AI Use</h3>
+        <p>
+          AI was used as a learning aid while I worked through the WCF material. I
+          used it to check my understanding of service contracts, data contracts,
+          generated client references, configuration, and fault handling. The project
+          was still based on the course examples, and I tested the service behavior
+          myself through the client instead of blindly accepting generated guidance.
+        </p>
+      </article>
+    </div>
   </section>
 
   <section class="section-card project-section fade-in">

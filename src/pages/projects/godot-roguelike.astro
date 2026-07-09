@@ -186,6 +186,49 @@ const runEffectsCode = `public static class RunEffects
     </ul>
   </section>
 
+  <section class="section-card project-process">
+    <p class="eyebrow">Process</p>
+    <h2>Development Process</h2>
+
+    <div class="process-grid">
+      <article>
+        <h3>Planning</h3>
+        <p>
+          I planned this prototype around a small but complete roguelike loop:
+          start a run, move through grid-based combat floors, defeat enemies,
+          choose rewards, carry run state forward, and finish with either victory
+          or game over. The main design challenge was coordinating player actions,
+          enemy turns, combat feedback, rewards, abilities, and scene transitions
+          without losing track of the run state between floors.
+        </p>
+      </article>
+
+      <article>
+        <h3>Validation</h3>
+        <p>
+          I validated the project by repeatedly playtesting the full run flow in
+          Godot. I checked movement, bump attacks, enemy turn resolution, ability
+          cooldowns, reward selection, passive effects, health and damage updates,
+          boss-floor progression, sound effects, combat log messages, and the
+          transition into victory or game-over screens. Testing the whole loop was
+          important because many bugs only appeared after multiple scene changes or
+          reward choices.
+        </p>
+      </article>
+
+      <article>
+        <h3>AI Use</h3>
+        <p>
+          AI was used as a support tool during development, especially for reasoning
+          through C# structure, turn-flow issues, debugging edge cases, and cleaning
+          up documentation. I still had to integrate the code into Godot scenes,
+          connect scripts to nodes, test the mechanics in play, and adjust the
+          systems when the actual game behavior did not match the intended design.
+        </p>
+      </article>
+    </div>
+  </section>
+
   <section class="section-card project-section fade-in">
     <p class="eyebrow">Code Sample</p>
     <h2>Reward and Gear Effect Logic</h2>

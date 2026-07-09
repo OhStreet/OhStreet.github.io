@@ -144,6 +144,48 @@ func Load(path string) (Config, error) {
     </ul>
   </section>
 
+
+  <section class="section-card project-process">
+    <p class="eyebrow">Process</p>
+    <h2>Development Process</h2>
+
+    <div class="process-grid">
+      <article>
+        <h3>Planning</h3>
+        <p>
+          I had a workflow problem: switching between different
+          monitor and workspace setups was repetitive. I designed the tool around
+          named JSON profiles, where each profile contains actions such as loading
+          a saved display layout, disabling a display, launching applications, or
+          opening URLs. I chose Go and Cobra to keep the command structure clear
+          and used MultiMonitorTool for the Windows-specific display behavior.
+        </p>
+      </article>
+
+      <article>
+        <h3>Validation</h3>
+        <p>
+          I validated the CLI by testing the list, show, and apply commands against
+          real profiles. The dry-run flag was especially useful because it let me
+          confirm which actions would run before changing monitor settings or
+          launching programs. After that, I tested the actual bed, desk, school,
+          and gaming workflows to make sure the profile actions worked in sequence.
+        </p>
+      </article>
+
+      <article>
+        <h3>AI Use</h3>
+        <p>
+          AI was used as a support tool for planning, debugging, and documentation
+          cleanup. I used it to review Go/Cobra structure, reason through profile
+          actions, and refine explanations, but I tested the CLI behavior myself
+          with dry runs and real profile switches. The main design decisions and
+          validation came from building the tool around my own Windows setup.
+        </p>
+      </article>
+    </div>
+  </section>
+
   <section class="section-card project-section fade-in">
     <p class="eyebrow">Code Sample</p>
     <h2>Loading Profile Configuration</h2>

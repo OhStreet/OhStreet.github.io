@@ -107,8 +107,8 @@ const screenshots = [
     <h2>Project Purpose</h2>
     <p>
       SportsPro Technical Support is an ASP.NET Core MVC application built around
-      a practical support-desk workflow. The system allows users to maintain
-      product, customer, technician, and incident records through standard
+      a support-desk workflow. The system allows users to maintain
+      product, customer, technician, and incident records through
       database-backed CRUD operations.
     </p>
     <p>
@@ -127,6 +127,44 @@ const screenshots = [
       {features.map((feature) => <li>{feature}</li>)}
     </ul>
   </section>
+
+  <section class="section-card project-process">
+  <p class="eyebrow">Process</p>
+  <h2>Development Process</h2>
+
+  <div class="process-grid">
+    <article>
+      <h3>Planning</h3>
+      <p>
+        Because it was built as a
+        group project, the work also required keeping the different parts of the
+        application consistent across models, controllers, Razor views, and data
+        access code.
+      </p>
+    </article>
+
+    <article>
+      <h3>Validation</h3>
+      <p>
+        I validated the project by working through the main user flows: creating
+        and editing records, filtering incidents by status, selecting technicians,
+        updating assigned incidents, and registering products to customers. This
+        helped confirm that the MVC routing, model validation, Entity Framework
+        queries, session state, and database relationships were working together
+        correctly.
+      </p>
+    </article>
+
+    <article>
+      <h3>AI Use</h3>
+      <p>
+        AI was used lightly as a support tool for boilerplate, documentation, and
+        refactoring ideas. Most of the learning came from building,
+        debugging, and connecting the full-stack pieces myself and with the group.
+      </p>
+    </article>
+  </div>
+</section>
 
   <section class="section-card project-section fade-in">
     <p class="eyebrow">Code Sample</p>

@@ -1,0 +1,179 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="About | Jared Street" description="About Jared Street, software developer and recent computer programming graduate.">
+  <section class="page-hero fade-in">
+    <p class="eyebrow">About</p>
+    <h1>About Me</h1>
+    <p>
+      I am a software developer focused on building practical applications with C#, ASP.NET Core,
+      PHP, SQL, JavaScript, and Go.
+    </p>
+  </section>
+
+  <section class="section-card fade-in">
+    <div class="hero-card">
+      <div class="hero-content">
+        <p class="eyebrow">Background</p>
+        <h2>Developer with a practical, project-first mindset</h2>
+
+        <p class="hero-summary">
+          I recently completed my Computer Programming degree and have been building projects across
+          web development, databases, desktop tooling, APIs, and game prototypes. I like projects that
+          solve a concrete problem, even when they are small.
+        </p>
+
+        <p>
+          My strongest interests are application development, backend logic, database-backed systems,
+          and tools, and business applications. I am especially interested in entry-level software
+          development roles where I can keep improving through real code, feedback, and production
+          practices.
+        </p>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <img
+          class="hero-photo"
+          src="/screenshots/tempheadshot1.jpg"
+          alt="Headshot of Jared Street"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-card fade-in">
+    <p class="eyebrow">Technical Focus</p>
+    <h2>What I Like Building</h2>
+
+    <div class="project-grid">
+      <article class="project-card">
+        <h3>Web Applications</h3>
+        <p>
+          Database-backed applications with authentication, CRUD workflows, validation, and clear user flows.
+        </p>
+
+        <div class="tech-list">
+          <span class="tech-pill">C#</span>
+          <span class="tech-pill">ASP.NET Core</span>
+          <span class="tech-pill">PHP</span>
+          <span class="tech-pill">MySQL</span>
+          <span class="tech-pill">SQL Server</span>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <h3>APIs & Services</h3>
+        <p>
+          REST-style services, JSON responses, AJAX clients, and projects where frontend behavior depends
+          on structured backend data.
+        </p>
+
+        <div class="tech-list">
+          <span class="tech-pill">REST</span>
+          <span class="tech-pill">JSON</span>
+          <span class="tech-pill">AJAX</span>
+          <span class="tech-pill">JavaScript</span>
+        </div>
+      </article>
+
+        <article class="project-card">
+        <h3>MVC Applications</h3>
+        <p>
+            Web applications built around clear controller actions, model validation, database-backed workflows,
+            and maintainable separation between data, logic, and views.
+        </p>
+
+        <div class="tech-list">
+            <span class="tech-pill">C#</span>
+            <span class="tech-pill">ASP.NET Core MVC</span>
+            <span class="tech-pill">Entity Framework</span>
+            <span class="tech-pill">SQL Server</span>
+        </div>
+        </article>
+
+        <article class="project-card">
+        <h3>C# Applications</h3>
+        <p>
+            Application projects focused on object-oriented design, user workflows, state management,
+            and practical problem solving across desktop, web, and interactive systems.
+        </p>
+
+        <div class="tech-list">
+            <span class="tech-pill">C#</span>
+            <span class="tech-pill">.NET</span>
+            <span class="tech-pill">OOP</span>
+            <span class="tech-pill">Application Logic</span>
+        </div>
+        </article>
+    </div>
+    <p>And others. I am always willing to learn new technologies and approaches!</p>
+  </section>
+  
+    <section class="section-card fade-in outside-code-section">
+      <div class="outside-code-layout">
+        <div class="outside-code-main">
+          <p class="eyebrow">Outside the Code</p>
+
+          <p>
+            For hobbies, I enjoy reading, strength training, and playing video games.
+          </p>
+
+          <p>
+            When reading, I heavily enjoy anything fantasy, technical books, and classic literature.
+            My favorite series is
+            <a
+              href="https://en.wikipedia.org/wiki/Malazan_Book_of_the_Fallen"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Malazan Book of the Fallen
+            </a>
+            by Steven Erikson.
+          </p>
+
+          <p>
+            I’m also into strength training, although I have not been as consistent with it lately as I would like.
+            My discipline of choice is powerlifting.
+          </p>
+
+          <figure class="outside-code-cat">
+            <img
+              class="outside-code-cat"
+              src="/screenshots/salem.png"
+              alt="My cat Salem"
+            />  
+            <figcaption>This is Salem!</figcaption>
+          </figure>
+
+          <div class="button-row">
+            <a class="button button-primary" href="/projects/">View My Projects</a>
+            <a class="button button-secondary" href="/documents/JaredStreetResume.pdf">View Resume</a>
+          </div>
+        </div>
+
+        <aside class="fun-fact-card">
+          <p class="eyebrow">Fun Fact</p>
+          <h3>STRAFTAT</h3>
+
+          <p>
+            There is this FPS game I play competitively as a hobby,
+            <a
+              href="https://store.steampowered.com/app/2386720/STRAFTAT/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+            STRAFTAT.
+            </a>
+          Tournaments are hosted on weekends, some with prizepools. I attend these here and there. I am top 100 in the world leaderboards.<span>&#128526;</span>
+          </p>
+
+          <img
+            class="fun-fact-image"
+            src="/screenshots/aboubi.png"
+            alt="STRAFTAT screenshot"
+          />
+        </aside>
+      </div>
+    </section>
+</BaseLayout>

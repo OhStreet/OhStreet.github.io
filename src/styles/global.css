@@ -651,6 +651,118 @@ section {
   gap: 1rem;
 }
 
+.framework-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.framework-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.65rem 1.05rem;
+  color: var(--text);
+  background: rgba(15, 23, 42, 0.72);
+  font-size: clamp(0.85rem, 1.4vw, 0.9rem);
+  font-weight: 800;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    background 160ms ease;
+}
+
+.framework-pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.about-hobby-layout {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.about-hobby-layout h3,
+.fun-fact-card h3 {
+  margin-top: 0;
+}
+
+.about-hobby-layout p,
+.fun-fact-card p {
+  color: var(--muted);
+}
+
+.fun-fact-card {
+  background: var(--card-bg-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.fun-fact-image {
+  width: 50%;
+  margin-top: 1rem;
+  height: auto;
+  
+}
+
+@media (min-width: 900px) {
+  .about-hobby-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
+    align-items: start;
+  }
+}
+
+.outside-code-layout {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.outside-code-main p,
+.fun-fact-card p {
+  color: var(--muted);
+}
+
+.outside-code-cat {
+  width: min(360px, 100%);
+  margin: 1.5rem auto 0;
+  display: block;
+  object-fit: cover;
+  box-shadow: var(--shadow-soft);
+}
+
+.fun-fact-card {
+  background: var(--card-bg-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.fun-fact-card h3 {
+  margin-top: 0;
+}
+
+.fun-fact-image {
+  width: min(320px, 100%);
+  margin: 1.5rem auto 0;
+  display: block;
+  border-radius: calc(var(--radius) - 4px);
+}
+
+@media (min-width: 900px) {
+  .outside-code-layout {
+    grid-template-columns: minmax(0, 1.25fr) minmax(360px, 0.85fr);
+  }
+}
+
 /* Project detail pages */
 
 .feature-list {
